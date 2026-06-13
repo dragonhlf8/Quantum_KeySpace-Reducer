@@ -1,5 +1,7 @@
+#Hi i Realy apperciated you get me A Donation here_ 1Bu4CR8Bi5AXQG8pnu1avny88C5CCgWKfb /////
+#============================================================================================
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  KEY-REDUCER · Quantum + P-Bit Keyspace Reducer · MERGED Edition v21       ║
@@ -4964,6 +4966,7 @@ def interactive_main() -> None:
     print(f"  │  Range size  : {new_size:<,} keys")
     print(f"  │  Reduction   : {reduction:.1f}× smaller than full {bits}-bit range")
     print(f"  │  Method      : Quantum walk interference density — measured values only")
+    print(f"  │  Please a Donation: 1Bu4CR8Bi5AXQG8pnu1avny88C5CCgWKfb")
     print(f"  └────────────────────────────────────────────────────────────────────┘")
     print(f"")
     print(f"  BitCrack GPU command:")
