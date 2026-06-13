@@ -11,8 +11,6 @@ USDT-TRON TQ1cxj8csRyWUzkonf5XgYUyFGsDJn1k7J
 
 USDT-BSC 0x3fa39005a6bb18d0e2546d97b24a767cc393b03a
 
-TODO: The Next Project is To Reveal A Supirior Version That Will Use Probabilistic Algorithm of Pbits Jumps Will be Used to Reduce All the Puzzles of BTC given Rangs to 2.0 % Targeting Public-Addresses . 
-
 ---
 
 IQM API TOKEN EASY TO GET [https://github.com/threealgos/Quantum_KeySpace-Reducer/blob/main/IQM.png](https://raw.githubusercontent.com/threealgos/Quantum_KeySpace-Reducer/refs/heads/main/IQM.png)
@@ -29,6 +27,8 @@ Use IQM Quantum machines 54 Qubits For Testing Small Puzzles Right Here : https:
 <img width="687" height="431" alt="Basic Fast Configs" src="https://raw.githubusercontent.com/threealgos/Quantum_KeySpace-Reducer/refs/heads/main/probabilistic_camputer.png" />
 
 # ________________________________
+
+TODO: The Next Project is To Reveal A Supirior Version That Will Use Probabilistic Algorithm of Pbits Jumps Will be Used to Reduce All the Puzzles of BTC given Rangs to 2.0 % Targeting Public-Addresses . 
 
 # The Probabilistic Quantum Code :
 # Will Features: 
