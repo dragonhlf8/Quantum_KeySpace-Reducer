@@ -29,6 +29,7 @@ TODO: The Next Project is To Reveal A Supirior Version That Will Use Probabilist
 #   • Uses pycryptodome RIPEMD160 (Colab safe)
 #   • Counter for measurement distribution
 #   • Current IBM free backends (kingston, fez, marrakech)
+<img width="687" height="431" alt="Basic Fast Configs" src="https://raw.githubusercontent.com/threealgos/Quantum_KeySpace-Reducer/refs/heads/main/probabilistic_camputer.png" />
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
