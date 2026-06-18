@@ -4640,7 +4640,7 @@ def interactive_main() -> None:
     print("  ┌─ INPUT MODE ─────────────────────────────────────────────────────┐")
     print("  │  [1]  Bitcoin P2PKH address only        (Hash160 — Mode1 Grover) │")
     print("  │  [2]  Address + Compressed public key   (hybrid — strong signal) │")
-    print("  └───────────────────────────────────────────────────────────────────┘")
+    print("  └──────────────────────────────────────────────────────────────────┘")
     choice = _ask("Select input mode [1/2]", "1")
 
     if choice == "1":
