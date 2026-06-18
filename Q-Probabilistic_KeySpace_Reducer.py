@@ -1,7 +1,5 @@
-#Hi i Realy apperciated you get me A Donation here_ 1Bu4CR8Bi5AXQG8pnu1avny88C5CCgWKfb /////
-#============================================================================================
 #!/usr/bin/env python3
-
+# -*- coding: utf-8 -*-
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  KEY-REDUCER · Quantum + P-Bit Keyspace Reducer · MERGED Edition v21       ║
@@ -4644,7 +4642,7 @@ def interactive_main() -> None:
     print("  │  [2]  Address  +  compressed public key    (hybrid — strong)     │")
     print("  │  [3]  Compressed public key only           (strongest signal)    │")
     print("  └───────────────────────────────────────────────────────────────────┘")
-    choice = _ask("Select input mode [1/2/3]", "1")
+    choice = _ask("Select input mode [1/2/3]", "3")
 
     if choice == "1":
         print("\n  ┌─ MODE [1] — ADDRESS ONLY ─────────────────────────────────────────┐")
@@ -4778,7 +4776,7 @@ def interactive_main() -> None:
     print("  │  ── IBM QUANTUM HARDWARE (qiskit-ibm-runtime) ──────────────────  │")
     print("  │  [8]  IBM Hardware  (ibm_fez 156q · ibm_kingston 156q · etc.)    │")
     print("  └────────────────────────────────────────────────────────────────────┘")
-    bk_in = _ask("Backend [1..8]", "8")
+    bk_in = _ask("Backend [1..8]", "1")
 
     iqm_device = "garnet"; iqm_token = ""
     ibm_token  = ""; ibm_crn = ""; ibm_backend_name = _IBM_DEFAULT_BACKEND
@@ -4820,9 +4818,13 @@ def interactive_main() -> None:
         print("  ✅ Aer Simulator selected (local, no token needed)")
 
 
-    # ── Sampler parameters — fixed defaults regardless of bit length ────────────
-    # NOTE: _preset_* values are intentionally NOT used as _ask() defaults.
-    # The same recommended config applies for every bit length / range target.
+    # ── Sampler parameters — pre-filled from preset ────────────────────────────
+    _def_shots  = _preset_shots(bits)
+    _def_layers = _preset_layers(bits)
+    _def_iters  = _preset_iters(bits)
+    _def_probes = _preset_probes(bits)
+    _has_preset = bits in PUZZLE_PRESETS
+    _pfx        = "preset" if _has_preset else "default"
 
     if backend_mode in ("iqm_hardware", "qrisp_iqm"):
         dev_q = IQM_DEVICE_QUBITS.get(iqm_device, 18)
@@ -4835,20 +4837,18 @@ def interactive_main() -> None:
     print(f"\n  ┌─ SAMPLER PARAMETERS ─────────────────────────────────────────────┐")
     print(f"  │  TwoLocal layers     3=fast · 4=balanced · 5=deeper             │")
     print(f"  │  Iterations          4=quick · 8=good · 12=thorough             │")
-    print(f"  │  Shots (default)     4096   (2048=fast · 65536=best)            │")
-    print(f"  │  Layers (default)    5 (3=fast · 5=deep)                        │")
-    print(f"  │  Iters (default)     4  (4=quick · 20=thorough)                 │")
-    print(f"  │  Ising probes        512 opt=2 · 1024 opt=3  (256=fast)         │")
-    print( "  │  SPSA iterations     0=disabled (always off by default)          │")
+    print(f"  │  Shots ({_pfx:<7})   {_def_shots:<6} (2048=fast · 65536=best)       │")
+    print(f"  │  Layers ({_pfx:<7})  {_def_layers} (3=fast · 5=deep)                 │")
+    print(f"  │  Iters ({_pfx:<7})   {_def_iters:<2} (4=quick · 20=thorough)           │")
+    print(f"  │  Ising probes ({_pfx:<7}) {_def_probes:<4} (256=fast · 1024=best)   │")
+    print( "  │  SPSA iterations     0=disabled · 40=fast · 60=default · 100=best│")
     print( "  └───────────────────────────────────────────────────────────────────┘")
-    layers     = int(_ask("TwoLocal layers",         "5"))
-    iters      = int(_ask("Iterations",              "4"))
-    shots      = int(_ask("Shots per iter",          "4096"))
+    layers     = int(_ask("TwoLocal layers",         str(_def_layers)))
+    iters      = int(_ask("Iterations",              str(_def_iters)))
+    shots      = int(_ask("Shots per iter",          str(_def_shots)))
     opt_level  = int(_ask("Transpile opt level",     "2"))
-    # Auto-link probes to opt_level: 2→512, 3→1024 (user can still override)
-    _default_probes = "1024" if opt_level >= 3 else "512"
-    n_probes   = int(_ask("Ising probes",            _default_probes))
-    spsa_iters = int(_ask("SPSA iterations (0=off)", "0"))
+    n_probes   = int(_ask("Ising probes",            str(_def_probes)))
+    spsa_iters = int(_ask("SPSA iterations (0=off)", "60"))
     use_spsa   = spsa_iters > 0 and SPSA_OK
 
     # ── Grover-IPE ─────────────────────────────────────────────────────────────
@@ -4860,12 +4860,12 @@ def interactive_main() -> None:
     print("\n  ┌─ GROVER-IPE PARAMETERS ───────────────────────────────────────────┐")
     print("  │  IPE rounds       3=fast(min) · 4=default · 6=thorough           │")
     print("  │  Grover shots     2048=fast · 4096=default · 8192=thorough        │")
-    print("  │  Top-K candidates 128=light · 4096=default · 256=thorough        │")
+    print("  │  Top-K candidates 32=fast · 128=default(G-8) · 256=thorough      │")
     print(f"  │  Oracle (auto)    {oracle_info:<52} │")
     print("  └───────────────────────────────────────────────────────────────────┘")
-    n_ipe   = int(_ask("IPE rounds (≥3)",      "3"))
-    g_shots = int(_ask("Grover shots",         "4096"))
-    g_topk  = int(_ask("Top-K candidates",    "4096"))
+    n_ipe   = int(_ask("IPE rounds (≥3)",      "4"))
+    g_shots = int(_ask("Grover shots",         str(_def_shots)))
+    g_topk  = int(_ask("Top-K candidates",    "128"))
 
     # ── Multi-run ─────────────────────────────────────────────────────────────
     print("\n  ┌─ MULTI-RUN VOTING [G-6] ─────────────────────────────────────────┐")
@@ -4966,7 +4966,6 @@ def interactive_main() -> None:
     print(f"  │  Range size  : {new_size:<,} keys")
     print(f"  │  Reduction   : {reduction:.1f}× smaller than full {bits}-bit range")
     print(f"  │  Method      : Quantum walk interference density — measured values only")
-    print(f"  │  Please a Donation: 1Bu4CR8Bi5AXQG8pnu1avny88C5CCgWKfb")
     print(f"  └────────────────────────────────────────────────────────────────────┘")
     print(f"")
     print(f"  BitCrack GPU command:")
@@ -5180,6 +5179,7 @@ Tokens:  export IQM_TOKEN=...   export IBM_QUANTUM_TOKEN=...
     print(f"  │  Bits pinned : {pc}/{bits}")
     print(f"  │  Reduction   : {reduction:.1f}×")
     print(f"  │  Method      : Quantum walk interference density — measured values only")
+    print(f"  │  Please a Donation: 1Bu4CR8Bi5AXQG8pnu1avny88C5CCgWKfb")
     print(f"  └────────────────────────────────────────────────────────────────────┘")
     print(f"")
     print(f"  BitCrack:")
